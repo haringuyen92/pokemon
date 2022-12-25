@@ -1,26 +1,28 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js App" />
+  <MainScreen
+    v-if="screen === 'default'"
+    @onStartGame="onStartGame($event)"
+  ></MainScreen>
+  <InteractScreen v-if="screen === 'play'">></InteractScreen>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import MainScreen from "@/components/MainScreen.vue";
+import InteractScreen from "@/components/InteractScreen.vue";
 
 export default {
   name: "App",
-  components: {
-    HelloWorld,
+  components: { InteractScreen, MainScreen },
+  data() {
+    return {
+      screen: "default",
+    };
+  },
+  methods: {
+    onStartGame(config) {
+      this.screen = "play";
+      console.log(config);
+    },
   },
 };
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
